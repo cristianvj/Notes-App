@@ -33,6 +33,9 @@ app.use(session({
 // Global Variables
 
 // Routes
+app.use(require('./routers/index'))
+app.use(require('./routers/notes'))
+app.use(require('./routers/users'))
 
 // Static Files
 
