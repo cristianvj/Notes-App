@@ -29,8 +29,9 @@ router.post('/notes/new-note', async (req, res)=>{
     }
 })
 
-router.get('/notes', (req, res)=>{
-    res.send('Notas de la base de datos')
+router.get('/notes', async (req, res)=>{
+    const notes = await Note.find()
+    res.render('notes/all-notes', {notes})
 })
 
 module.exports = router
