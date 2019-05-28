@@ -26,6 +26,7 @@ router.post('/notes/new-note', isAuthenticated,async (req, res)=>{
     }else{
         //Almacenamos en base de datos cuando ingrese titulo y descripción
         const newNote = new Note({title, description})
+        newNote.user = req.user.id
         await newNote.save()
         req.flash('success_msg', 'Note added Successfully')
         res.redirect('/notes')
@@ -33,7 +34,7 @@ router.post('/notes/new-note', isAuthenticated,async (req, res)=>{
 })
 
 router.get('/notes', isAuthenticated,async (req, res)=>{
-    const notes = await Note.find().sort({date:'desc'})
+    const notes = await Note.find({user: req.user.id}).sort({date:'desc'})
     res.render('notes/all-notes', {notes})
 })
 
